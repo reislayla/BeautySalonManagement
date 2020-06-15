@@ -104,7 +104,7 @@ mysqli_close($conn);
         </div>
         <form action="<?php
             echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
-            method="post" class="row">
+            method="post" class="row ml-0 mr-0">
                 <!--Name-->
                 <div class="form-group col-sm-6 ">
                     <label for="name" class="pull-left">Name *</label>
@@ -141,10 +141,10 @@ mysqli_close($conn);
                     <label for="password" class="pull-left">Password</label>
                     <input type="password" class="form-control input-lg" id="password" name="password" value="">
                 </div>
-                <div class="col-sm-12">
-                        <a href="employee.php" type="button" class="btn btn-lg btn-default pull-left">Cancelar</a>
-                        <button type="submit" class="btn btn-lg btn-success pull-left" name="AddEmployee">Adicionar</button>
-                </div>
+                <div class="col-sm-12 mt-5">
+                <a href="clients.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-lg btn-success pull-right" name="AddClient">Adicionar</button>
+        </div>
         </form>
     </div>
 </body>

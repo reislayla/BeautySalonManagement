@@ -33,7 +33,8 @@
 <!--Mensagem-->
 <?php echo $AlertMsg; ?>
 <!--Tabela de Clientes-->
-	<table class="table table-striped table-bordered mb-5">
+<div class="table-responsive">
+	<table class="table table-striped table-bordered table-hover mb-5">
 		<tr>
 			<th>Nome</th>
 			<th>Telefone</th>
@@ -47,7 +48,7 @@
 		while ($row = mysqli_fetch_assoc($result)) {
 			echo "<tr>";
 			echo "<td>" . $row['name'] . "</td><td>" . $row['phone'] . "</td><td>" . $row['email'] . "</td><td>" . $row['notes'] . "</td>";
-			echo '<td><a href="clientEdit.php?id=' . $row['id'] . ' "type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> </a></td>';
+			echo '<td><a href="clientEdit.php?id=' . $row['id'] . ' "type="button" class="btn btn-primary btn-sm"><i style="font-size:15px" class="far fa-edit"></i> </a></td>';
 			echo "</tr>";
 		}
 	}
@@ -63,6 +64,7 @@
 			<td colspan="7"><div class="text-center"><a href="clientAdd.php" type="button" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span> Novo Cliente</a></div></td>
 		</tr>
 	</table>
+</div>
 	<div class="push"></div>
 </div>
 <?php include 'footer.php';?>

@@ -3,12 +3,17 @@
 <?php 
     include "sidemenu.php"; 
     session_start();
-    include ('connection.php');
+    include "connection.php";
+    include "productAdd.php";
 
     //Base de Dados e Tabela client
     $qry = "SELECT * FROM supplier ORDER BY name ASC";
     $result = mysqli_query($conn, $qry);
     $AlertMsg = "";
+
+    /*Base de Dados e Tabela client
+    $qry1 = "SELECT * FROM product ORDER BY name ASC";
+    $result1 = mysqli_query($conn, $qry);*/
 
     //Alertas
     if (isset($_GET['alert'])) {
@@ -18,6 +23,9 @@
         elseif ($_GET['alert'] == 'UpdateSuccess') {
             $AlertMsg = "<div class = 'alert alert-success'>Fornecedor atualizado com sucesso.<a class='close' data-dismiss='alert'>&times;</a></div>";
         }
+        elseif ($_GET['alert'] == 'ProductSuccess') {
+            $AlertMsg = "<div class = 'alert alert-success'>Produto adicionado com sucesso.<a class='close' data-dismiss='alert'>&times;</a></div>";
+        }
         elseif ($_GET['alert'] == 'Deleted') {
             $AlertMsg = "<div class = 'alert alert-success'>Fornecedor removido com sucesso.<a class='close' data-dismiss='alert'>&times;</a></div>";
         }
@@ -26,6 +34,7 @@
 ?>
 
 <!--Corpo da página-->
+
 <body class="dashboard">
     <div class="main">
         <div class="text-center">
@@ -34,13 +43,13 @@
     <?php echo $AlertMsg; ?>
 
     <!--Tabela de fornecedores-->
-        <table class="table table-striped table-bordered">
+    <div class="table-responsive">
+	<table class="table table-striped table-bordered table-hover mb-5">
             <tr>
                 <th>Nome</th>
                 <th>Telefone</th>
                 <th>Email</th>
                 <th>Produtos</th>
-                <th>Notas</th>
                 <th>Editar</th>
             </tr>
         
@@ -49,8 +58,8 @@
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
-                echo "<td>" . $row['name'] . "</td><td>" . $row['phone'] . "</td><td>" . $row['email'] . "</td><td>" . $row['product'] . "</td><td>" . $row['notes'] . "</td>";
-                echo '<td><a href="supplierEdit.php?id=' . $row['id'] . ' "type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> </a></td>';
+                echo "<td>" . $row['name'] . "</td><td>" . $row['phone'] . "</td><td>" . $row['email'] . "</td><td>" . $row['product'] .  "</td>";
+                echo '<td><a href="supplierEdit.php?id=' . $row['id'] . ' "type="button" class="btn btn-primary btn-sm"><i style="font-size:15px" class="far fa-edit""></i> </a></td>';
                 echo "</tr>";
             }
         }
@@ -67,9 +76,68 @@
             </tr>
         </table>
     </div>
-    <div class="push"></div>
+        <button onclick="document.getElementById('registo').style.display='block'"  class="btn btn-sm btn-primary float-right mr-2"><i style="font-size:12px" class="fas fa-plus mr-1"></i> Produto</button>                 
+    </div>
+    
+    <!--Início do Modal-->
+            <div id="registo" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Novo Produto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <div class="modal-body">
+                <form class="needs-validation" novalidate method='POST'>
+                    <div class="form-group">
+                        <!--Nome do Produto-->
+                        <label for="exampleInputEmail1"><b>Nome</b></label>
+                        <input type="text" class="form-control border" id="exampleInputName1" name="productName" placeholder="Inserir Nome..." required value="<?php echo $productName; ?>">
+                        <div class="invalid-feedback">
+                        É obrigatório inserir um nome. 
+                        </div>
+                  </div>
+                  <!--
+                    <label for="name" class="float-left">Nome *</label>
+                    <input type="text" class="form-control input-lg border" id="name" name="name" value="">-->
 
+                    <!--Gravar-->
+                    <button type="submit" name="prod_user" class="btn btn-success float-right ml-2" onclick="erromsg();">Gravar</button>
+                    <!--Cancelar-->
+                    <button type="button" onclick="document.getElementById('registo').style.display='none'" class="btn btn-secondary float-right">Cancelar</button>
+                <!--<button type="button" class="btn btn-success">Gravar</button>-->
+                </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    <!--Fim do modal-->
+    <div class="push"></div>          
 </body>
-
 <!--Footer-->
 <?php include 'footer.php';?>
+
+<script>
+
+//Vai desabilitar o submit caso tenha algum campo inválido
+  (function erromsg() {
+  'use strict';
+  window.addEventListener('load', function() {
+    //Busca todos os formulários que precisam de validação e aplica de forma personalizada a cada um.  
+    var forms = document.getElementsByClassName('needs-validation');
+    //Impede o envio 
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+</script>

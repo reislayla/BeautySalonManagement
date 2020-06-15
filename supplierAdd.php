@@ -7,9 +7,14 @@ include ("function.php");
 $NameError="";
 $PhoneError="";
 $EmailError="";
+$product = $_POST['product'];
+echo "produto: ";
+var_dump($_POST['product']);
 
 if (isset($_POST['AddSupplier'])) {
-	$name = $phone = $email = $notes = "";
+    $name = $phone = $email = "";
+    
+
 	if (!$_POST['name']) {
 		$NameError = "Inserir nome do fornecedor <br />";
 	}
@@ -51,24 +56,26 @@ if (isset($_POST['AddSupplier'])) {
     } 
 
     //$email = ValidateFormData($_POST['email']);
-    $notes = ValidateFormData($_POST['notes']);
+    //$product = ValidateFormData($_POST['product']);
     
 
 	if ($name && $phone) {
-        $qry = "INSERT INTO `supplier`(`id`, `name`, `phone`, `email`, `notes`) VALUES (NULL, '$name', '$phone', '$email', '$notes')";
-        //query com o time e data de adição do fornecedor
-        //$qry = "INSERT INTO `supplier`(`id`, `name`, `phone`, `email`, `notes`) VALUES (NULL, '$name', '$phone', '$email', '$notes', CURRENT_TIMESTAMP)";
-		$result = mysqli_query($conn, $qry);
-		if ($result) {
-			header("Location: supplier.php?alert=Success");
-		}
-		else {
-			echo "Error: " . $qry . "<br />" . mysqli_error($conn);
-		}
-	}
-}
 
-mysqli_close($conn);
+            //Query da tabela supplier 
+            $qry = "INSERT INTO `supplier`(`id`, `name`, `phone`, `email`, `product`) VALUES (NULL, '$name', '$phone', '$email', '$product')";
+            //query com o time e data de adição do fornecedor
+            //$qry = "INSERT INTO `supplier`(`id`, `name`, `phone`, `email`, `notes`) VALUES (NULL, '$name', '$phone', '$email', '$product', CURRENT_TIMESTAMP)";
+            $result = mysqli_query($conn, $qry);
+            if ($result) {
+                header("Location: supplier.php?alert=Success");
+            }
+            else {
+                echo "Error: " . $qry . "<br />" . mysqli_error($conn);
+            }
+        }
+    }
+
+//mysqli_close($conn);
 include ('sidemenu.php');
 
 ?>
@@ -85,7 +92,7 @@ include ('sidemenu.php');
     </div>
 
 <form action="<?php
-    echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="row">
+    echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="row mr-0 ml-0">
         <div class="form-group col-sm-6 ">
             <label for="name" class="pull-left">Nome *</label>
             <small class="pull-right"><?php
@@ -99,18 +106,29 @@ include ('sidemenu.php');
             <input type="text" class="form-control input-lg" id="phone" name="phone" value="">
         </div>
         <div class="form-group col-sm-6">
-            <label for="email" class="pull-left">Email</label>
-            <small class="pull-right"><?php 
-    echo $EmailError; ?></small>
-            <input type="text" class="form-control input-lg" id="email" name="email" value="">
-        </div>
+                    <label for="email" class="pull-left">Email</label>
+                    <small class="pull-right"><?php 
+            echo $EmailError; ?></small>
+                    <input type="text" class="form-control input-lg" id="email" name="email" value="Inserir email...">
+                </div>
         <div class="form-group col-sm-6">
-            <label for="notes" class="pull-left">Notes</label>
-            <textarea type="text" class="form-control input-lg" id="notes" name="notes"></textarea>
+            <label for="product" class="pull-left">Produtos</label>
+            <select type="text" class="form-control input-lg" id="product" name="product">
+                <option value=""> Selecione a categoria... </option>
+                <?php
+                    $records = mysqli_query($conn, "SELECT category From product");
+
+                    while($data = mysqli_fetch_array($records))
+                    {
+                        echo "<option value='". $data['id'] ."'>" .$data['category'] ."</option>";  // displaying data in option menu
+                    }                    
+                    ?>  
+            </select>
+            <!--?php mysqli_close($conn); ?>-->
         </div>
-        <div class="col-sm-12">
-                <a href="supplier.php" type="button" class="btn btn-lg btn-default pull-left">Cancelar</a>
-                <button type="submit" class="btn btn-lg btn-success pull-right" name="AddSupplier">Adicionar</button>
+        <div class="col-sm-12 mt-5">
+                <a href="supplier.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-lg btn-success pull-right" name="AddClient">Adicionar</button>
         </div>
 </form>
 </div>

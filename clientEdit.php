@@ -76,7 +76,7 @@ mysqli_close($conn);
 echo $AlertMSG; ?>
 <form action="<?php
 echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?id=<?php
-echo $id; ?>" method="post" class="row">
+echo $id; ?>" method="post" class="row mr-0 ml-0">
     <div class="form-group col-sm-6">
         <label for="client-name">Name</label>
         <input type="text" class="form-control input-lg" id="client-name" name="name" value="<?php
@@ -97,13 +97,11 @@ echo $email; ?>">
         <textarea type="text" class="form-control input-lg" id="client-notes" name="notes"><?php
 echo $notes; ?></textarea>
     </div>
-    <div class="col-sm-12">
+    <div class="col-sm-12 mt-5 mb-3">
         <hr>
+        <a href="employee.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
         <button type="submit" class="btn btn-lg btn-danger pull-left" name="Delete">Remover</button>
-        <div class="pull-right">
-            <a href="clients.php" type="button" class="btn btn-lg btn-default">Cancelar</a>
-            <button type="submit" class="btn btn-lg btn-success" name="Update">Atualizar</button>
-        </div>
+        <button type="submit" class="btn btn-lg btn-success" name="Update">Atualizar</button>
     </div>
 </form>
 </div>

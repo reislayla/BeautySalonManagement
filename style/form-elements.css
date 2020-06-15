@@ -72,3 +72,4 @@ button.btnin:active { outline: 0; opacity: 0.6; color: #fff; -moz-box-shadow: no
 button.btnin:focus { outline: 0; opacity: 0.6; background: #de615e; color: #fff; }
 
 button.btnin:active:focus, button.btnin.active:focus { outline: 0; opacity: 0.6; background: #de615e; color: #fff; }
+

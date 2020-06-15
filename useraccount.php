@@ -18,7 +18,7 @@
   <div class="container">  
     <div class="text-center py-5">
       <!--Imagem-->
-      <img src="images/avatar.jpg" alt="Imagem de perfil" class="w-25 p-3 rounded-circle"><br>
+      <img src="images/avatar.jpg" alt="Imagem de perfil" style="max-height:160px;" class="p-3 rounded-circle"><br>
       <div class="p-2 mx-auto">
         <!--Texto-->
         <h4 class="font-weight-bold my-4">Salão XPTO</h4>
@@ -43,7 +43,7 @@
     <li >
       <a href="#">Instagram</a>
     </li>
-  </ul><hr class="m-0">
+  </ul><hr class="m-0 mb-5">
 </div>
 </body>
 <!--Footer--> 

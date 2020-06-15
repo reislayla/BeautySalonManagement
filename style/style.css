@@ -57,8 +57,6 @@ body.dashboard{
 	
 }
 
-
-
 .centraltable {
 	margin-left: 203px; /* Espaçamento necessário para área principal do dashboard */
 	margin-left: 3px;
@@ -313,4 +311,18 @@ img {
     border-bottom-color: #fff;
 }
 
-/*---------------------------------- CALENDARIO ----------------------------------*/
+/*--------- Modal -----------*/
+
+.modal
+{
+position: fixed;
+left: 6%;
+top:20%;
+}
+
+.services
+{
+position: fixed;
+left: 30%;
+top:20%;
+}

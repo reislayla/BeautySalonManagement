@@ -14,7 +14,7 @@ if (mysqli_num_rows($result) > 0) {
 		$name = $row['name'];
 		$phone = $row['phone'];
 		$email = $row['email'];
-		$notes = $row['notes'];
+		$product = $row['product'];
 	}
 }
 else {
@@ -25,12 +25,12 @@ if (isset($_POST['Update'])) {
 	$name = ValidateFormData($_POST['name']);
 	$phone = ValidateFormData($_POST['phone']);
 	$email = ValidateFormData($_POST['email']);
-	$notes = ValidateFormData($_POST['notes']);
+	$product = ValidateFormData($_POST['product']);
 	$qry = "UPDATE supplier 
                     SET name     = '$name',
                         phone    = '$phone',
                         email    = '$email',
-                        notes    = '$notes' WHERE id = '$id'";
+                        product    = '$product' WHERE id = '$id'";
 	$result = mysqli_query($conn, $qry);
 	if ($result) {
 		header("Location: supplier.php?alert=UpdateSuccess");
@@ -81,14 +81,14 @@ include ('sidemenu.php');
 echo $AlertMSG; ?>
 <form action="<?php
 echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?id=<?php
-echo $id; ?>" method="post" class="row">
+echo $id; ?>" method="post" class="row mr-0 ml-0">
     <div class="form-group col-sm-6">
         <label for="supplier-name">Name</label>
         <input type="text" class="form-control input-lg" id="supplier-name" name="name" value="<?php
 echo $name; ?>">
     </div>
     <div class="form-group col-sm-6">
-        <label for="supplier-phone">Phone</label>
+        <label for="supplier-phone">Telemóvel</label>
         <input type="text" class="form-control input-lg" id="supplier-phone" name="phone" value="<?php
 echo $phone; ?>">
     </div>
@@ -98,17 +98,15 @@ echo $phone; ?>">
 echo $email; ?>">
     </div>
     <div class="form-group col-sm-6">
-        <label for="supplier-notes">Notes</label>
-        <textarea type="text" class="form-control input-lg" id="supplier-notes" name="notes"><?php
-echo $notes; ?></textarea>
+        <label for="supplier-product">Produtos</label>
+        <input type="text" class="form-control input-lg" id="supplier-product" name="product"><?php
+echo $product; ?>
     </div>
-    <div class="col-sm-12">
+    <div class="col-sm-12 mt-5 mb-3">
         <hr>
+        <a href="employee.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
         <button type="submit" class="btn btn-lg btn-danger pull-left" name="Delete">Remover</button>
-        <div class="pull-right">
-            <a href="supplier.php" type="button" class="btn btn-lg btn-default">Cancelar</a>
-            <button type="submit" class="btn btn-lg btn-success" name="Update">Atualizar</button>
-        </div>
+        <button type="submit" class="btn btn-lg btn-success" name="Update">Atualizar</button>
     </div>
 </form>
 </div>

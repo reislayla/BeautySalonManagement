@@ -10,11 +10,11 @@
     </div>
 
     <!--Grid de Contactos-->
-    <div class="row content-justify-center mw-100">
+    <div class="row content-justify-center mw-100 ml-0 mr-0 mb-4">
       <!-- Coluna 1-->
       <div class="col-lg-4 col-md-12">
         <!--Wider-->
-        <div class="ml-4 card card-cascade wider">
+        <div class="card card-cascade wider">
             <!--Conteúdo-->
             <div class="card-body card-body-cascade text-center">
               <!--Título-->
