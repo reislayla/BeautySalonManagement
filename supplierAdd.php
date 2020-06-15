@@ -7,12 +7,10 @@ include ("function.php");
 $NameError="";
 $PhoneError="";
 $EmailError="";
-$product = $_POST['product'];
-echo "produto: ";
-var_dump($_POST['product']);
 
-if (isset($_POST['AddSupplier'])) {
-    $name = $phone = $email = "";
+
+if (isset($_POST['AddClient'])) {
+    $name = $phone = $email = $product = "";
     
 
 	if (!$_POST['name']) {
@@ -56,7 +54,7 @@ if (isset($_POST['AddSupplier'])) {
     } 
 
     //$email = ValidateFormData($_POST['email']);
-    //$product = ValidateFormData($_POST['product']);
+    $product = ValidateFormData($_POST['product']);
     
 
 	if ($name && $phone) {
@@ -111,19 +109,22 @@ include ('sidemenu.php');
             echo $EmailError; ?></small>
                     <input type="text" class="form-control input-lg" id="email" name="email" value="Inserir email...">
                 </div>
+        <!--Produtos-->
         <div class="form-group col-sm-6">
             <label for="product" class="pull-left">Produtos</label>
-            <select type="text" class="form-control input-lg" id="product" name="product">
+            <div id="select">
+            <select class="form-control input-lg" id="product" name="product">
                 <option value=""> Selecione a categoria... </option>
                 <?php
                     $records = mysqli_query($conn, "SELECT category From product");
 
                     while($data = mysqli_fetch_array($records))
                     {
-                        echo "<option value='". $data['id'] ."'>" .$data['category'] ."</option>";  // displaying data in option menu
+                        echo "<option value='". $data['category'] ."'>" .$data['category'] ."</option>";  // displaying data in option menu
                     }                    
                     ?>  
             </select>
+            </div>
             <!--?php mysqli_close($conn); ?>-->
         </div>
         <div class="col-sm-12 mt-5">

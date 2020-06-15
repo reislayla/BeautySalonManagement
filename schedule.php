@@ -31,10 +31,10 @@ $(document).ready(function() {
     header:{
      left:'prev,next today',
      center:'title',
-     right:'agendaDay,agendaWeek,month'
+     right:'month,agendaWeek,agendaDay,'
     },
     //Ler eventos
-    events: 'crud_schedule/load.php',
+    events: 'scheduleLoad.php',
     selectable:true,
     selectHelper:true,
     select: function(start, end, allDay)
@@ -48,7 +48,7 @@ $(document).ready(function() {
       var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
       $.ajax({
        //Enviar pedido para insert.php
-       url:"crud_schedule/insert.php",
+       url:"scheduleInsert.php",
        type:"POST",
        data:{title:title, start:start, end:end},
        success:function()
@@ -70,7 +70,7 @@ $(document).ready(function() {
      var id = event.id;
      //Enviar pedido para update.php
      $.ajax({
-      url:"crud_schedule/update.php",
+      url:"scheduleUpdate.php",
       type:"POST",
       data:{title:title, start:start, end:end, id:id},
       success:function(){
@@ -90,7 +90,7 @@ $(document).ready(function() {
      var id = event.id;
      //Enviar pedido para update.php
      $.ajax({
-      url:"crud_schedule/update.php",
+      url:"scheduleUpdate.php",
       type:"POST",
       data:{title:title, start:start, end:end, id:id},
       success:function()
@@ -110,7 +110,7 @@ $(document).ready(function() {
       var id = event.id;
       //Enviar pedido para update.php
       $.ajax({
-       url:"crud_schedule/delete.php",
+       url:"scheduleDelete.php",
        type:"POST",
        data:{id:id},
        success:function()

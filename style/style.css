@@ -57,6 +57,10 @@ body.dashboard{
 	
 }
 
+body.endsession{
+	background-color: #f1f1f1;
+}
+
 .centraltable {
 	margin-left: 203px; /* Espaçamento necessário para área principal do dashboard */
 	margin-left: 3px;

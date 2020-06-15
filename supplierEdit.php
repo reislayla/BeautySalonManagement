@@ -14,7 +14,7 @@ if (mysqli_num_rows($result) > 0) {
 		$name = $row['name'];
 		$phone = $row['phone'];
 		$email = $row['email'];
-		$product = $row['product'];
+		//$product = $row['product'];
 	}
 }
 else {
@@ -61,7 +61,7 @@ if (isset($_POST['confirm-delete'])) {
 	}
 }
 
-mysqli_close($conn);
+//mysqli_close($conn);
 include ('sidemenu.php');
 
 ?>
@@ -97,17 +97,40 @@ echo $phone; ?>">
         <input type="text" class="form-control input-lg" id="supplier-email" name="email" value="<?php
 echo $email; ?>">
     </div>
+
+    <div class="form-group col-sm-6">
+            <label for="product" class="pull-left">Produtos</label>
+            <div id="select">
+            <select class="form-control input-lg" id="product" name="product">
+                <option value=""> Selecione a categoria... </option>
+                <?php
+                    $records = mysqli_query($conn, "SELECT category From product");
+
+                    while($data = mysqli_fetch_array($records))
+                    {
+                        echo "<option value='". $data['category'] ."'>" .$data['category'] ."</option>";  // displaying data in option menu
+                    }                    
+                    ?>  
+            </select>
+            </div>
+            <!--?php mysqli_close($conn); ?>-->
+        </div>    
+        
+        <div class="col-sm-12 mt-5 mb-3">
+        <hr>
+        <a href="supplier.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-lg btn-danger pull-left" name="Delete">Remover</button>
+        <button type="submit" class="btn btn-lg btn-success" name="Update">Atualizar</button>
+    </div>
+
+
+
+    <!--
     <div class="form-group col-sm-6">
         <label for="supplier-product">Produtos</label>
         <input type="text" class="form-control input-lg" id="supplier-product" name="product"><?php
 echo $product; ?>
-    </div>
-    <div class="col-sm-12 mt-5 mb-3">
-        <hr>
-        <a href="employee.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
-        <button type="submit" class="btn btn-lg btn-danger pull-left" name="Delete">Remover</button>
-        <button type="submit" class="btn btn-lg btn-success" name="Update">Atualizar</button>
-    </div>
+    </div>-->
 </form>
 </div>
 </body>

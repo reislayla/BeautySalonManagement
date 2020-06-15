@@ -23,7 +23,7 @@ session_destroy();
         <link rel="stylesheet" href="style/style.css">
         <link rel="stylesheet" href="style/form-elements.css">
     </head>
-	<body>
+    <body class="endsession">
 		<div class="text-center mt-5">
 			<img src="images/logo.png" style="max-width:200px"><br><br>
 			<h1>Desconectado</h1>
