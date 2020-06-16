@@ -7,6 +7,7 @@
 	$qry = "SELECT * FROM client ORDER BY name ASC";
 	$result = mysqli_query($conn, $qry);
 	$AlertMsg = "";
+	$typesession = $_SESSION['user_type'];
 
 	//Alertas
 	if (isset($_GET['alert'])) {
@@ -40,15 +41,22 @@
 			<th>Telefone</th>
 			<th>Email</th>
 			<th>Notas</th>
-			<th>Editar</th>
+			<!--Coluna Editar apenas para administradores-->
+			<?php if ($typesession == "admin") { ?>
+			<th>Editar</th> <?php }?>
 		</tr>
     
-    <?php
+	<?php
+	
+	
 	if (mysqli_num_rows($result) > 0) {
 		while ($row = mysqli_fetch_assoc($result)) {
 			echo "<tr>";
 			echo "<td>" . $row['name'] . "</td><td>" . $row['phone'] . "</td><td>" . $row['email'] . "</td><td>" . $row['notes'] . "</td>";
-			echo '<td><a href="clientEdit.php?id=' . $row['id'] . ' "type="button" class="btn btn-primary btn-sm"><i style="font-size:15px" class="far fa-edit"></i> </a></td>';
+				//Botão Editar apenas para administradores
+				if ($typesession == "admin") {
+					echo '<td><a href="clientEdit.php?id=' . $row['id'] . ' "type="button" class="btn btn-primary btn-sm"><i style="font-size:15px" class="far fa-edit"></i> </a></td>';
+				}		
 			echo "</tr>";
 		}
 	}

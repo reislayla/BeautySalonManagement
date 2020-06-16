@@ -1,5 +1,10 @@
 <!--Menu lateral-->
-<?php include "sidemenu.php" ?> 
+<?php 
+session_start();
+include "sidemenu.php";
+include ('connection.php'); 
+$typesession = $_SESSION['user_type'];
+?> 
 
 
 <!--Corpo da página-->
@@ -22,7 +27,10 @@
               <h4 class="card-title"><strong><i class="fas fa-cut" style="font-size: 48px;"></i></strong></h4>
               <p id="title1"class="indigo-text"><strong>Corte Senhora</strong></p>
               <h5 id="content1" class="card-text">15€</h5>
+              <!--Botão Editar apenas para administradores-->
+              <?php if ($typesession == "admin") { ?>
               <button class="btn btn-light btn-sm border float-right" id="editBtn1" type="button"><i class="far fa-edit"></i></button>
+              <?php } ?>
             </div>       
         </div>
       </div>
@@ -36,7 +44,10 @@
               <h4 class="card-title"><strong><i class="far fa-hand-paper" style="font-size: 48px;"></i></strong></h4>
               <p id="title2" class="indigo-text"><strong>Verniz Gel</strong></p>
               <h5 id="content2" class="card-text">6€</h5>
+              <!--Botão Editar apenas para administradores-->
+              <?php if ($typesession == "admin") { ?>
               <button class="btn btn-light btn-sm border float-right" id="editBtn2" type="button"><i class="far fa-edit"></i></button>
+              <?php } ?>
             </div>     
         </div>
       </div>
@@ -50,7 +61,10 @@
               <h4 class="card-title"><strong><i class="fas fa-tint" style="font-size: 48px;"></i></strong></h4>
               <p id="title3" class="indigo-text"><strong>Coloração</strong></p>
               <h5 id="content3" class="card-text">35€</h5>
+                            <!--Botão Editar apenas para administradores-->
+                            <?php if ($typesession == "admin") { ?>
               <button class="btn btn-light btn-sm border float-right" id="editBtn3" type="button"><i class="far fa-edit"></i></button>
+              <?php } ?>
             </div>    
         </div>
       </div>
@@ -67,7 +81,10 @@
               <h4 class="card-title"><strong><i class="fas fa-cut" style="font-size: 48px;"></i></strong></h4>
               <p id="title4" class="indigo-text"><strong>Corte Homem</strong></p>
               <h5 id="content4" class="card-text">10€</h5>
+                                          <!--Botão Editar apenas para administradores-->
+                                          <?php if ($typesession == "admin") { ?>
               <button class="btn btn-light btn-sm border float-right" id="editBtn4" type="button"><i class="far fa-edit"></i></button>
+              <?php } ?>
             </div>       
         </div>
       </div>
@@ -81,7 +98,10 @@
               <h4 class="card-title"><strong><i class="far fa-hand-paper" style="font-size: 48px;"></i></strong></h4>
               <p id="title5" class="indigo-text"><strong>Remoção Verniz Gel</strong></p>
               <h5 id="content5" class="card-text">5€</h5>
+              <!--Botão Editar apenas para administradores-->
+              <?php if ($typesession == "admin") { ?>
               <button class="btn btn-light btn-sm border float-right" id="editBtn5" type="button"><i class="far fa-edit"></i></button>
+              <?php } ?>
             </div>     
         </div>
       </div>
@@ -95,8 +115,11 @@
               <h4 class="card-title"><strong><i class="fas fa-plus-circle" style="font-size: 48px;"></i></strong></h4>
               <p id="title6" class="indigo-text"><strong>Novo Serviço</strong></p>
               <h5 id="content6" class="card-text">Valor</h5>
+                            <!--Botão Editar apenas para administradores-->
+                            <?php if ($typesession == "admin") { ?>
               <button class="btn btn-light btn-sm border float-right" id="editBtn6" type="button"><i class="far fa-edit"></i></button>
-            </div>    
+              <?php } ?>
+          </div>    
         </div>
       </div>
     </div>

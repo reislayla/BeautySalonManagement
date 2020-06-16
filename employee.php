@@ -7,6 +7,7 @@
 	$qry = "SELECT * FROM employee ORDER BY name ASC";
 	$result = mysqli_query($conn, $qry);
 	$AlertMsg = "";
+	$typesession = $_SESSION['user_type'];
 
 	//Alertas
 	if (isset($_GET['alert'])) {
@@ -38,18 +39,20 @@
 		<tr>
 			<th>Nome</th>
 			<th>Telefone</th>
+			<!--Colunas apenas para administradores-->
+			<?php if ($typesession == "admin") { ?>
 			<th>Email</th>
             <th>Morada</th>
             <th>Tipo</th>
-			<th>Editar</th>
+			<th>Editar</th> <?php }?>
 		</tr>
     
     <?php
 	if (mysqli_num_rows($result) > 0) {
 		while ($row = mysqli_fetch_assoc($result)) {
 			echo "<tr>";
-			echo "<td>" . $row['name'] . "</td><td>" . $row['phone'] . "</td><td>" . $row['email'] . "</td><td>" . $row['address'] . "</td><td>" . $row['type'];
-			echo '<td><a href="employeeEdit.php?id=' . $row['id'] . ' "type="button" class="btn btn-primary btn-sm"><i style="font-size:15px" class="far fa-edit"></i> </a></td>';
+			echo "<td>" . $row['name'] . "</td><td>" . $row['phone'] . "</td>"; if ($typesession == "admin") { echo "<td>" . $row['email'] . "</td><td>" . $row['address'] . "</td><td>" . $row['type'];
+			echo '<td><a href="employeeEdit.php?id=' . $row['id'] . ' "type="button" class="btn btn-primary btn-sm"><i style="font-size:15px" class="far fa-edit"></i> </a></td>'; }
 			echo "</tr>";
 		}
 	}
@@ -59,11 +62,12 @@
 	}
 
 	mysqli_close($conn);
-	?>
-    
+		
+	//Adicionar funcionários apenas para administradores
+		if ($typesession == "admin") { ?>
 		<tr>
 			<td colspan="7"><div class="text-center"><a href="employeeAdd.php" type="button" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span> Novo Funcionário</a></div></td>
-		</tr>
+		</tr> <?php } ?>
 	</table>
 </div>
 	<div class="push"></div>

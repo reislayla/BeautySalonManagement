@@ -68,7 +68,7 @@ if (isset($_POST['confirm-delete'])) {
 	}
 }
 
-mysqli_close($conn);
+//mysqli_close($conn);
 ?>
 
 <body class="dashboard">
@@ -109,14 +109,26 @@ echo $address; ?>">
     </div>
     <!--Type-->
     <div class="form-group col-sm-6">
-        <label for="employee-type">Tipo</label>
-        <input type="text" class="form-control input-lg" id="employee-type" name="type" value="<?php
-echo $type; ?>">
-    </div>
+            <label for="type" class="pull-left">Tipo</label>
+            <div id="select">
+            <select class="form-control input-lg" id="type" name="type">
+                <option value=""> Selecione o Tipo... </option>
+                <?php
+                    $records = mysqli_query($conn, "SELECT type FROM user");
+
+                    while($data = mysqli_fetch_array($records))
+                    {
+                        echo "<option value='". $data['type'] ."'>" .$data['type'] ."</option>";  // displaying data in option menu
+                    }                    
+                    ?>  
+            </select>
+            </div>
+            <!--?php mysqli_close($conn); ?>-->
+        </div>   
         <!--password-->
         <div class="form-group col-sm-6">
         <label for="employee-password">Password</label>
-        <input type="text" class="form-control input-lg" id="employee-password" name="password" value="<?php
+        <input type="password" class="form-control input-lg" id="employee-password" name="password" value="<?php
 echo $password; ?>">
     </div>
     <div class="col-sm-12 mt-5 mb-3">

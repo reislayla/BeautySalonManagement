@@ -1,6 +1,12 @@
 
 <!--Menu lateral-->
-<?php include "sidemenu.php" ?> 
+<?php 
+session_start();
+include "sidemenu.php"; 
+include ('connection.php');
+$typesession = $_SESSION['user_type'];
+$name = $_SESSION['user_name'];
+$email = $_SESSION['user_email'];?> 
 
 <!--Corpo da página-->
 <body class="dashboard">
@@ -24,9 +30,13 @@
         <div class="editor">
           <h4 id="title" class="font-weight-bold my-4">Nome</h4>
           <p id="content" class="text-muted mb-3">Texto</p>
+          <p><?php echo $name . " - " . $email ?> </p>
         </div>
         <br>
+        <!--Botão Editar Perfil do Salão apenas para administradores-->
+        <?php if ($typesession == "admin") { ?>
         <button class="btn btn-light btn-sm border float-right" id="editBtn" type="button">Editar Perfil</button>
+        <?php } ?>
         </div>
       </div>
     </div>

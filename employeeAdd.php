@@ -93,7 +93,7 @@ if (isset($_POST['AddEmployee'])) {
 		}
 	}
 }
-mysqli_close($conn);
+//mysqli_close($conn);
 ?>
 
 <body class="dashboard">
@@ -131,10 +131,27 @@ mysqli_close($conn);
                     <label for="address" class="pull-left">Morada</label>
                     <input type="text" class="form-control input-lg" id="address" name="address">
                 </div>
-                <!--type-->
+                <!--type
                 <div class="form-group col-sm-6">
                     <label for="type" class="pull-left">Tipo</label>
                     <input type="text" class="form-control input-lg" id="type" name="type">
+                </div>-->
+                <div class="form-group col-sm-6">
+                    <label for="type" class="pull-left">Tipo</label>
+                    <div id="select">
+                        <select class="form-control input-lg" id="type" name="type">
+                            <option value=""> Selecione o tipo... </option>
+                            <?php
+                                $records = mysqli_query($conn, "SELECT type FROM user");
+
+                                while($data = mysqli_fetch_array($records))
+                                {
+                                    echo "<option value='". $data['type'] ."'>" .$data['type'] ."</option>";  // displaying data in option menu
+                                }                    
+                                ?>  
+                        </select>
+                    </div>
+                <!--?php mysqli_close($conn); ?>-->
                 </div>
                 <!--password-->
                 <div class="form-group col-sm-6">
@@ -142,8 +159,8 @@ mysqli_close($conn);
                     <input type="password" class="form-control input-lg" id="password" name="password" value="">
                 </div>
                 <div class="col-sm-12 mt-5">
-                <a href="clients.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
-                <button type="submit" class="btn btn-lg btn-success pull-right" name="AddClient">Adicionar</button>
+                <a href="employee.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-lg btn-success pull-right" name="AddEmployee">Adicionar</button>
         </div>
         </form>
     </div>

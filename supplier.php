@@ -10,6 +10,7 @@
     $qry = "SELECT * FROM supplier ORDER BY name ASC";
     $result = mysqli_query($conn, $qry);
     $AlertMsg = "";
+    $typesession = $_SESSION['user_type'];
 
     /*Base de Dados e Tabela client
     $qry1 = "SELECT * FROM product ORDER BY name ASC";
@@ -48,9 +49,11 @@
             <tr>
                 <th>Nome</th>
                 <th>Telefone</th>
+                <!--Colunas apenas para administradores-->
+                <?php if ($typesession == "admin") { ?>
                 <th>Email</th>
                 <th>Produtos</th>
-                <th>Editar</th>
+                <th>Editar</th> <?php }?>
             </tr>
         
         <?php
@@ -58,8 +61,8 @@
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
-                echo "<td>" . $row['name'] . "</td><td>" . $row['phone'] . "</td><td>" . $row['email'] . "</td><td>" . $row['product'] .  "</td>";
-                echo '<td><a href="supplierEdit.php?id=' . $row['id'] . ' "type="button" class="btn btn-primary btn-sm"><i style="font-size:15px" class="far fa-edit""></i> </a></td>';
+                echo "<td>" . $row['name'] . "</td><td>" . $row['phone'] . "</td>"; if ($typesession == "admin") { echo "<td>" . $row['email'] . "</td><td>" . $row['product'] .  "</td>";
+                echo '<td><a href="supplierEdit.php?id=' . $row['id'] . ' "type="button" class="btn btn-primary btn-sm"><i style="font-size:15px" class="far fa-edit""></i> </a></td>'; }
                 echo "</tr>";
             }
         }
@@ -69,14 +72,17 @@
         }
 
         mysqli_close($conn);
-        ?>
-        
+            //Botão Novo Fornecedor apenas para administradores
+            if ($typesession == "admin") { ?>
             <tr>
                 <td colspan="7"><div class="text-center"><a href="supplierAdd.php" type="button" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span> Novo Fornecedor</a></div></td>
-            </tr>
+            </tr> <?php } ?>
         </table>
     </div>
-        <button onclick="document.getElementById('registo').style.display='block'"  class="btn btn-sm btn-primary float-right mr-2"><i style="font-size:12px" class="fas fa-plus mr-1"></i> Produto</button>                 
+    <!--Botão para adicionar nova categoria de produto apenas para administradores-->
+        <?php if ($typesession == "admin") { ?>
+        <button onclick="document.getElementById('registo').style.display='block'"  class="btn btn-sm btn-primary float-right mr-2"><i style="font-size:12px" class="fas fa-plus mr-1"></i> Produto</button> 
+        <?php } ?>                
     </div>
     
     <!--Início do Modal-->
@@ -84,7 +90,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content ">
                     <div class="modal-header">
-                        <h5 class="modal-title">Novo Produto</h5>
+                        <h5 class="modal-title">Nova Categoria</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
