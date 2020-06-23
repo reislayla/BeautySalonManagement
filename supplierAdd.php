@@ -9,7 +9,7 @@ $PhoneError="";
 $EmailError="";
 
 
-if (isset($_POST['AddClient'])) {
+if (isset($_POST['AddSupplier'])) {
     $name = $phone = $email = $product = "";
     
 
@@ -21,7 +21,7 @@ if (isset($_POST['AddClient'])) {
 	}
 
 	if (!$_POST['phone']) {
-		$PhoneError = "Inserir telefone do cliente <br />";
+		$PhoneError = "Inserir telemóvel do fornecedor <br />";
 	}
 	else {
 
@@ -36,10 +36,6 @@ if (isset($_POST['AddClient'])) {
         }
 		
 	}
-    
-    //Validar email
-    //$erro = ['email' => ''];
-    //$var = false;
 
     if ($_POST['email']) {
         $email = $_POST['email'];
@@ -58,18 +54,16 @@ if (isset($_POST['AddClient'])) {
     
 
 	if ($name && $phone) {
+        $stmt = $conn->prepare("INSERT INTO `supplier`(`name`, `phone`, `email`, `product`) VALUES (?,?,?,?)");
+        $stmt->bind_param("ssss", $name, $phone, $email, $product);
+        $stmt->execute();
 
-            //Query da tabela supplier 
-            $qry = "INSERT INTO `supplier`(`id`, `name`, `phone`, `email`, `product`) VALUES (NULL, '$name', '$phone', '$email', '$product')";
-            //query com o time e data de adição do fornecedor
-            //$qry = "INSERT INTO `supplier`(`id`, `name`, `phone`, `email`, `notes`) VALUES (NULL, '$name', '$phone', '$email', '$product', CURRENT_TIMESTAMP)";
-            $result = mysqli_query($conn, $qry);
-            if ($result) {
-                header("Location: supplier.php?alert=Success");
-            }
-            else {
-                echo "Error: " . $qry . "<br />" . mysqli_error($conn);
-            }
+		if ($stmt) {
+			header("Location: supplier.php?alert=Success");
+		}
+		else {
+			echo "Error: " . $stmt . "<br />" . mysqli_error($conn);
+        }
         }
     }
 
@@ -92,26 +86,26 @@ include ('sidemenu.php');
 <form action="<?php
     echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="row mr-0 ml-0">
         <div class="form-group col-sm-6 ">
-            <label for="name" class="pull-left">Nome *</label>
-            <small class="pull-right"><?php
+            <label for="name" class="float-left">Nome *</label>
+            <small class="ml-2 float-left text-danger"><?php
     echo $NameError; ?></small>
             <input type="text" class="form-control input-lg" id="name" name="name" value="">
         </div>
         <div class="form-group col-sm-6">
-            <label for="phone" class="pull-left">Telemóvel *</label>
-            <small class="pull-right"><?php
+            <label for="phone" class="float-left">Telemóvel *</label>
+            <small class="ml-2 float-left text-danger"><?php
     echo $PhoneError; ?></small>
             <input type="text" class="form-control input-lg" id="phone" name="phone" value="">
         </div>
         <div class="form-group col-sm-6">
-                    <label for="email" class="pull-left">Email</label>
-                    <small class="pull-right"><?php 
+                    <label for="email" class="float-left">Email</label>
+                    <small class="ml-2 float-left text-danger"><?php 
             echo $EmailError; ?></small>
                     <input type="text" class="form-control input-lg" id="email" name="email" value="Inserir email...">
                 </div>
         <!--Produtos-->
         <div class="form-group col-sm-6">
-            <label for="product" class="pull-left">Produtos</label>
+            <label for="product" class="float-left">Produtos</label>
             <div id="select">
             <select class="form-control input-lg" id="product" name="product">
                 <option value=""> Selecione a categoria... </option>
@@ -128,8 +122,8 @@ include ('sidemenu.php');
             <!--?php mysqli_close($conn); ?>-->
         </div>
         <div class="col-sm-12 mt-5">
-                <a href="supplier.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
-                <button type="submit" class="btn btn-lg btn-success pull-right" name="AddClient">Adicionar</button>
+                <button type="submit" class="btn btn-sm btn-success float-right ml-2" name="AddSupplier">Adicionar</button>
+                <a href="supplier.php" type="button" class="btn btn-sm btn-secondary float-right">Cancelar</a>                
         </div>
 </form>
 </div>

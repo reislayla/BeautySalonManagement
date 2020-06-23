@@ -1,7 +1,5 @@
 <?php
 
-//insert.php
-//include "includes/connection.php";
 $connect = new PDO('mysql:host=localhost;dbname=salao', 'root', '');
 
 //Validar se foi inserido um título.

@@ -12,15 +12,17 @@ include "connection.php";
   $productName = mysqli_real_escape_string($conn, $_POST['productName']);
 
   //query para inserir na base de dados
-  $query = "INSERT INTO `product` (`category`) 
-        VALUES('$productName')";
-  $result= mysqli_query($conn, $query);
-    if ($result) {
-        header("Location: supplier.php?alert=ProductSuccess");
+    $stmt = $conn->prepare( "INSERT INTO `product`(`category` ) VALUES (?)");
+    $stmt->bind_param("s", $productName);
+    $stmt->execute();
+
+    if ($stmt) {
+        header("Location: supplier.php?alert=SuccessProd");
     }
     else {
-        echo "Error: " . $qry . "<br />" . mysqli_error($conn);
+        echo "Error: " . $stmt . "<br />" . mysqli_error($conn);
     }
 }
 
 ?>
+

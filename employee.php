@@ -17,6 +17,10 @@
 		elseif ($_GET['alert'] == 'UpdateSuccess') {
 			$AlertMsg = "<div class = 'alert alert-success'>Funcionário atualizado com sucesso.<a class='close' data-dismiss='alert'>&times;</a></div>";
 		}
+		elseif ($_GET['alert'] == 'SuccessProd') {
+			$AlertMsg = "<div class = 'alert alert-success'>Produto adicionado com sucesso.<a class='close' data-dismiss='alert'>&times;</a></div>";
+		}
+
 		elseif ($_GET['alert'] == 'Deleted') {
 			$AlertMsg = "<div class = 'alert alert-success'>Funcionário removido com sucesso.<a class='close' data-dismiss='alert'>&times;</a></div>";
 		}

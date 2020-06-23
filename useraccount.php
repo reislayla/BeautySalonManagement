@@ -81,15 +81,15 @@ editBtn.addEventListener('click', function(e) {
   if (!editables[0].isContentEditable) {
     editables[0].contentEditable = 'true';
     editables[1].contentEditable = 'true';
-    editBtn.innerHTML = 'Save Changes';
-    editBtn.style.backgroundColor = '#6F9';
+    editBtn.innerHTML = 'Gravar edição';
+    editBtn.style.backgroundColor = '#5c802a';
   } else {
     // Disable Editing
     editables[0].contentEditable = 'false';
     editables[1].contentEditable = 'false';
     // Change Button Text and Color
-    editBtn.innerHTML = 'Enable Editing';
-    editBtn.style.backgroundColor = '#F96';
+    editBtn.innerHTML = 'Ativar Edição';
+    editBtn.style.backgroundColor = '#ad6b74';
     // Save the data in localStorage 
     for (var i = 0; i < editables.length; i++) {
       localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);

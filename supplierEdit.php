@@ -117,19 +117,12 @@ echo $email; ?>">
         </div>    
         
         <div class="col-sm-12 mt-5 mb-3">
-        <hr>
-        <a href="supplier.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
-        <button type="submit" class="btn btn-lg btn-danger pull-left" name="Delete">Remover</button>
-        <button type="submit" class="btn btn-lg btn-success" name="Update">Atualizar</button>
+        <button type="submit" class="btn btn-sm btn-danger float-left" name="Delete">Remover</button>
+        <button type="submit" class="btn btn-sm btn-success float-right ml-2" name="Update">Atualizar</button>
+        <a href="supplier.php" type="button" class="btn btn-sm btn-secondary float-right">Cancelar</a>
+        <br><hr>
     </div>
-
-
-
-    <!--
-    <div class="form-group col-sm-6">
-        <label for="supplier-product">Produtos</label>
-        <input type="text" class="form-control input-lg" id="supplier-product" name="product"><?php
-echo $product; ?>
+    <?php echo $product; ?>
     </div>-->
 </form>
 </div>

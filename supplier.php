@@ -1,6 +1,7 @@
 
-<!--Menu lateral-->
+
 <?php 
+    //Menu lateral
     include "sidemenu.php"; 
     session_start();
     include "connection.php";
@@ -11,10 +12,6 @@
     $result = mysqli_query($conn, $qry);
     $AlertMsg = "";
     $typesession = $_SESSION['user_type'];
-
-    /*Base de Dados e Tabela client
-    $qry1 = "SELECT * FROM product ORDER BY name ASC";
-    $result1 = mysqli_query($conn, $qry);*/
 
     //Alertas
     if (isset($_GET['alert'])) {

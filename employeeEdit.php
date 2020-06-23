@@ -85,31 +85,31 @@ echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?id=<?php
 echo $id; ?>" method="post" class="row mr-0 ml-0">
     <!--Name-->
     <div class="form-group col-sm-6">
-        <label for="employee-name">Name</label>
+        <label for="employee-name" class="float-left">Name</label>
         <input type="text" class="form-control input-lg" id="employee-name" name="name" value="<?php
 echo $name; ?>">
     </div>
     <!--Phone-->
     <div class="form-group col-sm-6">
-        <label for="employee-phone">Phone</label>
+        <label for="employee-phone" class="float-left">Phone</label>
         <input type="text" class="form-control input-lg" id="employee-phone" name="phone" value="<?php
 echo $phone; ?>">
     </div>
     <!--Email-->
     <div class="form-group col-sm-6">
-        <label for="employee-email">Email</label>
+        <label for="employee-email" class="float-left">Email</label>
         <input type="text" class="form-control input-lg" id="employee-email" name="email" value="<?php
 echo $email; ?>">
     </div>
     <!--Address-->
     <div class="form-group col-sm-6">
-        <label for="employee-address">Morada</label>
+        <label for="employee-address" class="float-left">Morada</label>
         <input type="text" class="form-control input-lg" id="employee-address" name="address" value="<?php
 echo $address; ?>">
     </div>
     <!--Type-->
     <div class="form-group col-sm-6">
-            <label for="type" class="pull-left">Tipo</label>
+            <label for="type"  class="float-left">Tipo</label>
             <div id="select">
             <select class="form-control input-lg" id="type" name="type">
                 <option value=""> Selecione o Tipo... </option>
@@ -127,15 +127,15 @@ echo $address; ?>">
         </div>   
         <!--password-->
         <div class="form-group col-sm-6">
-        <label for="employee-password">Password</label>
+        <label for="employee-password" class="float-left">Password</label>
         <input type="password" class="form-control input-lg" id="employee-password" name="password" value="<?php
 echo $password; ?>">
     </div>
     <div class="col-sm-12 mt-5 mb-3">
-        <hr>
-        <a href="employee.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
-        <button type="submit" class="btn btn-lg btn-danger pull-left" name="Delete">Remover</button>
-        <button type="submit" class="btn btn-lg btn-success" name="Update">Atualizar</button>
+        <button type="submit" class="btn btn-sm btn-danger float-left" name="Delete">Remover</button>
+        <button type="submit" class="btn btn-sm btn-success float-right ml-2" name="Update">Atualizar</button>
+        <a href="employee.php" type="button" class="btn btn-sm btn-secondary float-right">Cancelar</a>
+        <br><hr>
     </div>
 </form>
 </div>

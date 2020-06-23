@@ -9,9 +9,12 @@ include ("sidemenu.php");
 $NameError="";
 $PhoneError="";
 $EmailError="";
+$PassError="";
+
+$name = $phone = $email = $address = $type = $password = "";
 
 if (isset($_POST['AddEmployee'])) {
-    $name = $phone = $email = $address = $type = $password = "";
+    
     
     //name
 	if (!$_POST['name']) {
@@ -23,7 +26,7 @@ if (isset($_POST['AddEmployee'])) {
     
     //phone
 	if (!$_POST['phone']) {
-		$PhoneError = "Inserir telefone do cliente <br />";
+		$PhoneError = "Inserir telemóvel do cliente <br />";
 	}
 	else {
 
@@ -51,6 +54,14 @@ if (isset($_POST['AddEmployee'])) {
         }
     } 
 
+    //name
+	if (!$_POST['password']) {
+		$PassError = "Inserir password do funcionário <br />";
+	}
+	else {
+		$password = ValidateFormData($_POST['password']);
+    }
+
 
     //Caso queira criar mensagens de erros para outras variáveis
     /*address
@@ -77,21 +88,21 @@ if (isset($_POST['AddEmployee'])) {
 
     $address = ValidateFormData($_POST['address']);
     $type = ValidateFormData($_POST['type']);
-    $password = ValidateFormData($_POST['password']);
+    //$password = ValidateFormData($_POST['password']);
 
 
-	if ($name && $phone) {
-        $qry = "INSERT INTO `employee`(`id`, `name`, `phone`, `email`, `address`, `type`, `password` ) VALUES (NULL, '$name', '$phone', '$email', '$address', '$type', '$password')";
-        //query com o time e data de adição do cliente
-        //$qry = "INSERT INTO `client`(`id`, `name`, `phone`, `email`, `notes`) VALUES (NULL, '$name', '$phone', '$email', '$notes', CURRENT_TIMESTAMP)";
-		$result = mysqli_query($conn, $qry);
-		if ($result) {
+    if ($name && $phone) {
+        $stmt = $conn->prepare( "INSERT INTO `employee`(`name`, `phone`, `email`, `address`, `type`, `password` ) VALUES (?,?,?,?,?,?)");
+        $stmt->bind_param("ssssss", $name, $phone, $email, $address, $type, $password);
+        $stmt->execute();
+
+		if ($stmt) {
 			header("Location: employee.php?alert=Success");
 		}
 		else {
-			echo "Error: " . $qry . "<br />" . mysqli_error($conn);
+			echo "Error: " . $stmt . "<br />" . mysqli_error($conn);
 		}
-	}
+    }
 }
 //mysqli_close($conn);
 ?>
@@ -107,28 +118,28 @@ if (isset($_POST['AddEmployee'])) {
             method="post" class="row ml-0 mr-0">
                 <!--Name-->
                 <div class="form-group col-sm-6 ">
-                    <label for="name" class="pull-left">Name *</label>
-                    <small class="pull-right"><?php
+                    <label for="name" class="float-left">Name *</label>
+                    <small class="ml-2 float-left text-danger"><?php
             echo $NameError; ?></small>
                     <input type="text" class="form-control input-lg" id="name" name="name" value="">
                 </div>
                 <!--Phone-->
                 <div class="form-group col-sm-6">
-                    <label for="phone" class="pull-left">Telemóvel *</label>
-                    <small class="pull-right"><?php
+                    <label for="phone" class="float-left">Telemóvel *</label>
+                    <small class="ml-2 float-left text-danger"><?php
             echo $PhoneError; ?></small>
                     <input type="text" class="form-control input-lg" id="phone" name="phone" value="">
                 </div>
                 <!--Email-->
                 <div class="form-group col-sm-6">
-                    <label for="email" class="pull-left">Email</label>
-                    <small class="pull-right"><?php 
+                    <label for="email" class="float-left">Email</label>
+                    <small class="ml-2 float-left text-danger"><?php 
             echo $EmailError; ?></small>
                     <input type="text" class="form-control input-lg" id="email" name="email" value="Inserir email...">
                 </div>
                 <!--Address-->
                 <div class="form-group col-sm-6">
-                    <label for="address" class="pull-left">Morada</label>
+                    <label for="address" class="float-left">Morada</label>
                     <input type="text" class="form-control input-lg" id="address" name="address">
                 </div>
                 <!--type
@@ -137,7 +148,7 @@ if (isset($_POST['AddEmployee'])) {
                     <input type="text" class="form-control input-lg" id="type" name="type">
                 </div>-->
                 <div class="form-group col-sm-6">
-                    <label for="type" class="pull-left">Tipo</label>
+                    <label for="type" class="float-left">Tipo</label>
                     <div id="select">
                         <select class="form-control input-lg" id="type" name="type">
                             <option value=""> Selecione o tipo... </option>
@@ -155,8 +166,10 @@ if (isset($_POST['AddEmployee'])) {
                 </div>
                 <!--password-->
                 <div class="form-group col-sm-6">
-                    <label for="password" class="pull-left">Password</label>
-                    <input type="password" class="form-control input-lg" id="password" name="password" value="">
+                    <label for="password" class="float-left">Password *</label>
+                    <small class="ml-2 float-left text-danger"><?php 
+            echo $PassError; ?></small>
+                    <input type="password" class="form-control input-lg" id="password" name="password" minlength="6" maxlength="8" value="">
                 </div>
                 <div class="col-sm-12 mt-5">
                 <a href="employee.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>

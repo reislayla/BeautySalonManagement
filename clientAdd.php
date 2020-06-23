@@ -8,9 +8,10 @@ include ('sidemenu.php');
 $NameError="";
 $PhoneError="";
 $EmailError="";
+$name = $phone = $email = $notes = "";
 
 if (isset($_POST['AddClient'])) {
-	$name = $phone = $email = $notes = "";
+	
 	if (!$_POST['name']) {
 		$NameError = "Inserir nome do cliente <br />";
 	}
@@ -19,7 +20,7 @@ if (isset($_POST['AddClient'])) {
 	}
 
 	if (!$_POST['phone']) {
-		$PhoneError = "Inserir telefone do cliente <br />";
+		$PhoneError = "Inserir telemóvel do cliente <br />";
 	}
 	else {
 
@@ -35,38 +36,30 @@ if (isset($_POST['AddClient'])) {
 		
 	}
 
-    //Validar email
-    //$erro = ['email' => ''];
-    //$var = false;
 
     if ($_POST['email']) {
-        $email = $_POST['email'];
-        if(filter_var($email, FILTER_VALIDATE_EMAIL))
+           if(filter_var($email, FILTER_VALIDATE_EMAIL))
         {
             $email = ValidateFormData($_POST['email']);
         }else
         {
-            $EmailError = 'O email submetido é inválido! Tente novamente <br />';
+            $EmailError = ' O email submetido é inválido! Tente novamente <br />';
         }
     } 
-
-    //$email = ValidateFormData($_POST['email']);
-    
-
-
+ 
     $notes = ValidateFormData($_POST['notes']);
-    
 
+ 
 	if ($name && $phone) {
-        $qry = "INSERT INTO `client`(`id`, `name`, `phone`, `email`, `notes`) VALUES (NULL, '$name', '$phone', '$email', '$notes')";
-        //query com o time e data de adição do cliente
-        //$qry = "INSERT INTO `client`(`id`, `name`, `phone`, `email`, `notes`) VALUES (NULL, '$name', '$phone', '$email', '$notes', CURRENT_TIMESTAMP)";
-		$result = mysqli_query($conn, $qry);
-		if ($result) {
+        $stmt = $conn->prepare("INSERT INTO `client`(`name`, `phone`, `email`, `notes`) VALUES (?,?,?,?)");
+        $stmt->bind_param("ssss", $name, $phone, $email, $notes);
+        $stmt->execute();
+
+		if ($stmt) {
 			header("Location: clients.php?alert=Success");
 		}
 		else {
-			echo "Error: " . $qry . "<br />" . mysqli_error($conn);
+			echo "Error: " . $stmt . "<br />" . mysqli_error($conn);
 		}
 	}
 }
@@ -84,33 +77,33 @@ mysqli_close($conn);
     echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="row ml-0 mr-0">
     <!--Name-->
         <div class="form-group col-sm-6 ">
-            <label for="name" class="pull-left">Name *</label>
-            <small class="pull-right"><?php
+            <label for="name" class="float-left">Nome *</label>
+            <small class="ml-2 float-left text-danger"><?php
     echo $NameError; ?></small>
             <input type="text" class="form-control input-lg" id="name" name="name" value="">
         </div>
     <!--Telemóvel-->
         <div class="form-group col-sm-6">
-            <label for="phone" class="pull-left">Telemóvel *</label>
-            <small class="pull-right"><?php
+            <label for="phone" class="float-left">Telemóvel *</label>
+            <small class="ml-2 float-left text-danger"><?php
     echo $PhoneError; ?></small>
             <input type="text" class="form-control input-lg" id="phone" name="phone" value="">
         </div>
     <!--Email-->
     <div class="form-group col-sm-6">
-                    <label for="email" class="pull-left">Email</label>
-                    <small class="pull-right"><?php 
+                    <label for="email" class="float-left">Email</label>
+                    <small class="ml-2 float-left text-danger"><?php 
             echo $EmailError; ?></small>
                     <input type="text" class="form-control input-lg" id="email" name="email" value="Inserir email...">
                 </div>
     <!--Notes-->
         <div class="form-group col-sm-6">
-            <label for="notes" class="pull-left">Notes</label>
+            <label for="notes" class="float-left">Notas</label>
             <input type="text" class="form-control input-lg" id="notes" name="notes">
         </div>
         <div class="col-sm-12 mt-5">
-                <a href="clients.php" type="button" class="btn btn-lg btn-secondary">Cancelar</a>
-                <button type="submit" class="btn btn-lg btn-success pull-right" name="AddClient">Adicionar</button>
+                <button type="submit" class="btn btn-sm btn-success float-right ml-2" name="AddClient">Adicionar</button>
+                <a href="clients.php" type="button" class="btn btn-sm btn-secondary float-right">Cancelar</a>                
         </div>
 </form>
 </div>

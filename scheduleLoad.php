@@ -1,7 +1,6 @@
 <?php
 
 //conexão com a base de dados
-//include "includes/connection.php";
 $connect = new PDO('mysql:host=localhost;dbname=salao', 'root', '');
 
 $data = array();

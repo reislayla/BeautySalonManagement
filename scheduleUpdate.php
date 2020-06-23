@@ -1,7 +1,5 @@
 <?php
 
-//update.php
-//include "includes/connection.php";
 $connect = new PDO('mysql:host=localhost;dbname=salao', 'root', '');
 
 if(isset($_POST["id"]))
