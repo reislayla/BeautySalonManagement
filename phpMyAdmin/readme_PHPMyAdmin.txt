@@ -1,4 +1,4 @@
-*2020/04/13*
+*2020/06/23*
 *2020
 
 --------------------------PHP MyAdmin------------------------------
@@ -8,25 +8,33 @@
 Software Livre
 Licença GPL
 
-Nesta pasta encontram-se todos os ficheiros necessários para o funcionamento do site Quiz. 
+Nesta pasta encontram-se todos os ficheiros necessários para o funcionamento do sistema. 
 
 Descrição dos ficheiros:
 
 1.
-	Nome: quizzes.sql
-	Função: Tabela com as categorias dos quizzes presentes no site. 
+	Nome: client.sql
+	Função: Tabela para armazenar os clientes. 
 
 2.
-	Nome: registos.sql
-	Função: Tabela com informações relativas aos registos do utilizador, como nome, email e password.
+	Nome: employee.sql
+	Função: Tabela para armazenar os funcionários e suas credenciais.
 
 3.
-	Nome: questions.sql
-	Função: Tabela com as questões dos quizzes, opções de respostas, resposta correta e as suas respetivas categorias. 
+	Nome: events.sql
+	Função: Tabela para armazenar os agendamentos. 
 
 4.
-	Nome: result.sql
-	Função: Tabela com a informação dos quizzes respondidos pelo utilizador, bem como a sua categoria e qual foi a sua pontuação final. 
+	Nome: product.sql
+	Função: Tabela para armazenar as categorias de produtos utilizadas nos registos dos fornecedores. É possível adicionar mais categorias no sistema. 
+	
+5.
+	Nome: supplier.sql
+	Função: Tabela para armazenar os fornecedores.
+	
+6.
+	Nome: user.sql
+	Função: Tabela com as categorias de utilizadores, user e admin.  
  
 
 
